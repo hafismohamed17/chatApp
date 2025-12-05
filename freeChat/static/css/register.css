@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #e6f2e6; /* light green background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.register-container {
+    background: #fff;
+    padding: 35px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.register-container h2 {
+    margin-bottom: 20px;
+    color: #0b3d0b; /* dark green heading */
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #0b3d0b;
+    outline: none;
+    box-shadow: 0 0 5px rgba(11, 61, 11, 0.5);
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #0b3d0b; /* dark green */
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+button:hover {
+    background: #145214; /* lighter green on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+.login {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.login a {
+    color: #0b3d0b; /* dark green link */
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.login a:hover {
+    text-decoration: underline;
+}

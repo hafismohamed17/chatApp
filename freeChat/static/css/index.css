@@ -1,0 +1,83 @@
+        /* Full-screen background */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;/* put your image in static/images/ */
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-sizing: border-box;
+        }
+        nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 20px;
+        }
+
+        /* Center content */
+        .center-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .quote {
+            font-size: 28px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .author {
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+        .btn-get-started {
+            padding: 15px 30px;
+            font-size: 18px;
+            background: darkgreen;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-get-started:hover {
+            background: darkgreen;
+        }
+.btn-get-started {
+    padding: 12px 28px;         /* simpler padding */
+    font-size: 18px;
+    background: darkgreen;        /* purple color */
+    color: white;
+    border: none;
+    border-radius: 6px;         /* slightly rounded */
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;  /* smooth animation */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* subtle shadow */
+}
+
+.btn-get-started:hover {
+    background: darkgreen;        /* lighter purple on hover */
+    transform: translateY(-3px); /* small lift animation */
+    box-shadow: 0 6px 10px rgba(0,0,0,0.25); /* deeper shadow */
+}

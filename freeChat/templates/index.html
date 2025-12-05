@@ -1,0 +1,29 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreeChat</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body style="background-image: url('{% static 'img/home.jpg' %}');">
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">FreeChat</div>
+    <div>
+        <a href="{% url 'register' %}">Get Started</a>
+    </div>
+</nav>
+
+<!-- Centered Quote -->
+<div class="center-content">
+    <div class="quote">"Communication is the key to connection."</div>
+    <div class="author">- Hafis Mohamed</div>
+    <a href="{% url 'register' %}" class="btn-get-started">Get Started</a>
+</div>
+
+</body>
+</html>

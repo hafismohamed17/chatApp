@@ -1,0 +1,46 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+</head>
+<body>
+
+<!-- Header with username and logout -->
+<!-- Header with username and logout -->
+<div class="header">
+    <h2>Chat Room</h2>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <i class='bx bx-user' style="font-size: 24px; color:#4f46e5;"></i>
+        <span>{{ user.username }}</span>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+</div>
+
+
+<!-- Chat messages -->
+<div class="chat-box">
+    {% for m in messages %}
+        <div class="msg">
+            <span class="username">
+                {% if m.user %}{{ m.user.username }}{% else %}Unknown{% endif %}:
+            </span>
+            {{ m.text }}
+            <span class="timestamp">({{ m.created_at|date:"H:i d M" }})</span>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Message input -->
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="message" placeholder="Type message..." required>
+    <button type="submit">Send</button>
+</form>
+
+</body>
+</html>
