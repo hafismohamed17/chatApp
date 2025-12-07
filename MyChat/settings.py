@@ -27,9 +27,6 @@ DEBUG = True
 
 CSRF_TRUSTED_ORIGINS = [
     "https://chatapp-l0mb.onrender.com",
-    "http://chatapp-l0mb.onrender.com",   # include HTTP if needed
-    "https://www.chatapp-l0mb.onrender.com",  # include www if used
-    "http://www.chatapp-l0mb.onrender.com"
 ]
 
 
