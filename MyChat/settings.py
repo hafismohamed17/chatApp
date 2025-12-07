@@ -26,8 +26,12 @@ SECRET_KEY = 'django-insecure-mmdr)*-aw(r7e=4wf@jlj2c@-aqb(m_42c=cz$g&sdvxg07y&f
 DEBUG = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://chatapp-l0mb.onrender.com","https://api-chatapp-l0mb.onrender.com"
+    "https://chatapp-l0mb.onrender.com",
+    "http://chatapp-l0mb.onrender.com",   # include HTTP if needed
+    "https://www.chatapp-l0mb.onrender.com",  # include www if used
+    "http://www.chatapp-l0mb.onrender.com"
 ]
+
 
 
 ALLOWED_HOSTS = ['localhost','chatapp-l0mb.onrender.com','127.0.0.1']
