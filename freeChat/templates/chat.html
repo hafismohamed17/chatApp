@@ -10,8 +10,6 @@
 </head>
 <body>
 
-<!-- Header with username and logout -->
-<!-- Header with username and logout -->
 <div class="header">
     <h2>Chat Room</h2>
     <div style="display: flex; align-items: center; gap: 10px;">
@@ -21,9 +19,8 @@
     </div>
 </div>
 
-
 <!-- Chat messages -->
-<div class="chat-box">
+<div class="chat-box" id="chat-box">
     {% for m in messages %}
         <div class="msg">
             <span class="username">
@@ -41,6 +38,30 @@
     <input type="text" name="message" placeholder="Type message..." required>
     <button type="submit">Send</button>
 </form>
+
+<!-- 🔥 Auto Refresh Script – NO extra HTML needed -->
+<script>
+function refreshMessages() {
+    fetch("/get-messages-json/")
+        .then(res => res.json())
+        .then(data => {
+            let box = document.getElementById("chat-box");
+            box.innerHTML = ""; // clear old messages
+
+            data.messages.forEach(m => {
+                box.innerHTML += `
+                    <div class="msg">
+                        <span class="username">${m.user}:</span>
+                        ${m.text}
+                        <span class="timestamp">(${m.time})</span>
+                    </div>
+                `;
+            });
+        });
+}
+
+setInterval(refreshMessages, 1500); // refresh every 1.5 seconds
+</script>
 
 </body>
 </html>
