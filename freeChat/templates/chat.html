@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +7,15 @@
     <title>Chat Room</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+
+    <style>
+        .username { font-weight: bold; }
+        .msg {
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,7 +28,6 @@
     </div>
 </div>
 
-<!-- Chat messages -->
 <div class="chat-box" id="chat-box">
     {% for m in messages %}
         <div class="msg">
@@ -32,35 +40,91 @@
     {% endfor %}
 </div>
 
-<!-- Message input -->
 <form method="POST">
     {% csrf_token %}
     <input type="text" name="message" placeholder="Type message..." required>
     <button type="submit">Send</button>
 </form>
 
-<!-- 🔥 Auto Refresh Script – NO extra HTML needed -->
 <script>
+
+// Generate consistent color
+function stringToColor(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    let color = "#";
+    for (let i = 0; i < 3; i++) {
+        let value = (hash >> (i * 8)) & 0xFF;
+        color += ("00" + value.toString(16)).substr(-2);
+    }
+    return color;
+}
+
+// Light bubble color
+function lightenColor(hex, percent) {
+    let num = parseInt(hex.replace("#", ''), 16);
+    let r = Math.min(255, (num >> 16) + percent);
+    let g = Math.min(255, ((num >> 8) & 0x00FF) + percent);
+    let b = Math.min(255, (num & 0x0000FF) + percent);
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+// 🔥 Apply colors to current page messages
+function applyColors() {
+    let messages = document.querySelectorAll(".msg");
+
+    messages.forEach(div => {
+        let usernameElement = div.querySelector(".username");
+        if (!usernameElement) return;
+
+        let name = usernameElement.textContent.replace(":", "").trim();
+        let userColor = stringToColor(name);
+        let bubbleColor = lightenColor(userColor, 160);
+
+        usernameElement.style.color = userColor;
+        div.style.background = bubbleColor;
+    });
+}
+
+// 🔥 Run once on initial page load
+applyColors();
+
 function refreshMessages() {
     fetch("/get-messages-json/")
         .then(res => res.json())
         .then(data => {
             let box = document.getElementById("chat-box");
-            box.innerHTML = ""; // clear old messages
+            let existing = box.innerHTML;
 
+            let newHTML = "";
             data.messages.forEach(m => {
-                box.innerHTML += `
-                    <div class="msg">
-                        <span class="username">${m.user}:</span>
+                let userColor = stringToColor(m.user);
+                let bubbleColor = lightenColor(userColor, 160);
+
+                newHTML += `
+                    <div class="msg" style="background:${bubbleColor};">
+                        <span class="username" style="color:${userColor};">
+                            ${m.user}:
+                        </span>
                         ${m.text}
                         <span class="timestamp">(${m.time})</span>
                     </div>
                 `;
             });
+
+            if (existing.trim() !== newHTML.trim()) {
+                box.innerHTML = newHTML;
+
+                box.style.scrollBehavior = "auto";
+                box.scrollTop = box.scrollHeight;
+                box.style.scrollBehavior = "smooth";
+            }
         });
 }
 
-setInterval(refreshMessages, 1500); // refresh every 1.5 seconds
+setInterval(refreshMessages, 1500);
 </script>
 
 </body>
