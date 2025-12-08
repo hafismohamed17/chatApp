@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from . import models
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
+from django.http import JsonResponse
 
 def home_page(request):
     return render(request, "index.html")
@@ -74,3 +75,16 @@ def home(request):
 
     messages = models.Message.objects.order_by("-created_at")
     return render(request, "chat.html", {"messages": messages, "user": user})
+
+def get_messages_json(request):
+    msgs = models.Message.objects.order_by("-created_at")
+    data = []
+
+    for m in msgs:
+        data.append({
+            "user": m.user.username if m.user else "Unknown",
+            "text": m.text,
+            "time": m.created_at.strftime("%H:%M %d %b")
+        })
+
+    return JsonResponse({"messages": data})
