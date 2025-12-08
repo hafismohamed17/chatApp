@@ -41,15 +41,18 @@
 
 <!-- 🔥 Auto Refresh Script – NO extra HTML needed -->
 <script>
+<script>
 function refreshMessages() {
     fetch("/get-messages-json/")
         .then(res => res.json())
         .then(data => {
             let box = document.getElementById("chat-box");
-            box.innerHTML = ""; // clear old messages
+            let existing = box.innerHTML;
 
+            // Build new HTML
+            let newHTML = "";
             data.messages.forEach(m => {
-                box.innerHTML += `
+                newHTML += `
                     <div class="msg">
                         <span class="username">${m.user}:</span>
                         ${m.text}
@@ -57,10 +60,20 @@ function refreshMessages() {
                     </div>
                 `;
             });
+
+            // Only update if content changed (prevents blinking)
+            if (existing.trim() !== newHTML.trim()) {
+                box.innerHTML = newHTML;
+
+                // Auto scroll to bottom
+                box.scrollTop = box.scrollHeight;
+            }
         });
 }
 
-setInterval(refreshMessages, 1500); // refresh every 1.5 seconds
+setInterval(refreshMessages, 1500); // refresh every 1.5 sec
+</script>
+
 </script>
 
 </body>
